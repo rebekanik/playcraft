@@ -3,9 +3,9 @@
 
 <head>
     <meta charset="utf-8">
-    <title>GameStore</title>
+    <title>PLAYCRAFT</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/x-icon" href="img/logo.ico">
+    <link rel="icon" type="image/x-icon" href="./img/pc2.png">
     <!-- GOOGLE FONTS CSS -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins&display=swap">
@@ -17,14 +17,6 @@
 </head>
 
 <body>
-
-    <!-- <div class="error">
-    <div class="errorBox">
-      <div class="container">
-        <h1>Error</h1>
-      </div>
-    </div>
-  </div> -->
 
     <header>
         <div class="container">
@@ -58,28 +50,43 @@
 
     <main class="bg1">
         <div class="main-container">
-            <div class="box">
-                <h1 class="formName">Login</h1>
+            <div class="box wideBox">
+                <h1 class="formName">Create Game</h1>
                 <form>
-                    <label>Email</label>
-                    <input type="email" formControlName="email" name="email" required email />
+                    <label>Name</label>
+                    <input type="text" formControlName="name" name="name" minlength="3" required />
 
-                    <label>Password</label>
-                    <input type="password" formControlName="password" name="password" minlength="6" required />
-                    
-                    <p class="login-register">
-                        <a href="forgot_password.html">Forgot your password?</a>
-                    </p>
+                    <label>Game Type</label>
+                    <select name="type" formControlName="type" required>
+                        <option disabled selected value="">Select Game Type</option>
+                        <option value="action">Action</option>
+                        <option value="adventure">Adventure</option>
+                        <option value="simulation">Simulation</option>
+                        <option value="survival">Survival</option>
+                        <option value="sports">Sports</option>
+                        <option value="racing">Racing</option>
+                    </select>
 
-                    <button class="submitBtn" type="submit">Login</button>
+                    <label>Image URL</label>
+                    <input type="text" formControlName="imageURL" name="imageURL" required
+                        pattern="^(https?:\/\/).*\.(jpg|png)$">
+
+                    <label>Description</label>
+                    <textarea formControlName="description" name="description" required minlength="10"></textarea>
+
+                    <label>Price</label>
+                    <input type="number" formControlName="price" name="price" min="0" required>
+
+                    <label>Download URL</label>
+                    <input type="text" formControlName="downloadURL" name="downloadURL" required
+                        pattern="^(https?:\/\/).*$">
+
+                    <button class="submitBtn" type="submit">Create Game</button>
                 </form>
-                <p class="login-register">
-                    Not have an account? <a href="register.html">Register Here</a>
             </div>
         </div>
     </main>
-
-    <footer>
+        <footer>
         <div class="container">
             <div class="navBar">
                 <ul>
