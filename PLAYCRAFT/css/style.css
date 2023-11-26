@@ -122,7 +122,7 @@ header .menuArea .menuBtn {
     flex-direction: column;
     width: 100%;
     background: radial-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-        url("../img/banner1.jpg");
+        url("../img/game.jpg");
     background-size: cover;
     background-position: center;
 }
@@ -140,7 +140,7 @@ header .menuArea .menuBtn {
 }
 
 #hero-banner .textArea h1 .highlight {
-    color: orange;
+    color: rgb(202, 99, 157);
     font-size: 50px;
     font-weight: bold;
     text-shadow: 2px 2px 2px black;
@@ -160,7 +160,7 @@ header .menuArea .menuBtn {
     margin-top: 20px;
     font-size: 20px;
     color: white;
-    background-color: rgb(99, 202, 159);
+    background-color: rgb(202, 99, 157);
     border-radius: 4px;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
 }
@@ -209,7 +209,7 @@ section .buttonArea .btn {
     padding: 10px;
     font-size: 16px;
     color: white;
-    background-color: rgb(99, 202, 159);
+    background-color: rgb(202, 99, 157);
     border-radius: 4px;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
 }
@@ -302,7 +302,7 @@ aside .box .container {
     grid-template-columns: 100%;
 }
 aside .box h1 {
-    color: #75dab0;
+    color: rgb(202, 99, 157);
     font-size: 22px;
     font-weight: bold;
     font-family: "Poppins", sans-serif;
@@ -407,7 +407,7 @@ aside .popularPost .post h2 {
 }
 
 aside .popularPost .post h2:hover {
-    color: #75dab0;
+    color: rgb(202, 99, 157);
 }
 
 aside .popularPost .noGames h2 {
