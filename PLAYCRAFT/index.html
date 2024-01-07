@@ -18,13 +18,100 @@
 
 <body>
 
-    <!-- <div class="error">
-        <div class="errorBox">
-            <div class="container">
-                <h1>Error</h1>
-            </div>
-        </div>
-    </div> -->
+    <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Občutljiva Operacija</title>
+</head>
+
+<body>
+
+    <button id="sensitiveOperationBtn">Izvedi občutljivo operacijo</button>
+
+    <script>
+        document.getElementById('sensitiveOperationBtn').addEventListener('click', function () {
+            // Pošlji asinhrono zahtevo na server na endpoint /sensitive-operation
+            fetch('/sensitive-operation', {
+                method: 'POST',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+            })
+            .catch(error => {
+                console.error('Napaka pri občutljivi operaciji:', error);
+                alert('Napaka pri občutljivi operaciji');
+            });
+        });
+    </script>
+
+<div id="posts"></div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const postsContainer = document.getElementById('posts');
+
+        // Function to render posts and comments
+        function renderPosts(posts) {
+            postsContainer.innerHTML = '';
+
+            posts.forEach(post => {
+                const postElement = document.createElement('div');
+                postElement.innerHTML = `
+                    <h2>${post.title}</h2>
+                    <ul>
+                        ${post.comments.map(comment => `
+                            <li>
+                                <strong>${comment.user}</strong>:
+                                ${comment.content} (Rating: ${comment.rating})
+                            </li>
+                        `).join('')}
+                    </ul>
+                    <button onclick="addComment(${post.id})">Add Comment</button>
+                `;
+
+                postsContainer.appendChild(postElement);
+            });
+        }
+
+        // Function to add a new comment
+        function addComment(postId) {
+            const user = prompt('Enter your name:');
+            const content = prompt('Enter your comment:');
+            const rating = parseInt(prompt('Enter your rating (1-5):'));
+
+            fetch(`/posts/${postId}/comments`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ user, content, rating }),
+            })
+            .then(response => response.json())
+            .then(newComment => {
+                // Fetch and render posts after adding a comment
+                fetch('/posts')
+                .then(response => response.json())
+                .then(renderPosts);
+            })
+            .catch(error => console.error('Error adding comment:', error));
+        }
+
+        // Fetch initial posts on page load
+        fetch('/posts')
+        .then(response => response.json())
+        .then(renderPosts);
+    });
+    </script>
+
+</body>
+
+</html>
+
 
     <header>
         <div class="container">
@@ -48,7 +135,7 @@
                     <li><a href="categoryGame.html">🚗Racing</a></li>
                     <li><a href="categoryGame.html">💀Horror</a></li>
                     <li><a href="create.html">✍🏻 Create post</a></li>
-                    <li><a href="">🚪LogOut</a></li>
+                    <li><a href="#" id="logoutBtn">🚪LogOut</a></li>
                     <li><a href="profile.html">👨‍💻 My Profile</a></li>
                     <li><a href="login.html">🔑 LogIn</a></li>
                     <li><a href="register.html">✍🏻 Register</a></li>
@@ -86,6 +173,7 @@
                             <h2><i class="fas fa-user"></i><a href="">Playcraft </a><i class="far fa-clock"></i> November
                                 22,2023</h2>
                             <p></p>
+                            <button onclick="likeGame(this)" data-game="Tic - Tac - Toe" class="like-btn">❤️ Like</button>
                         </div>
                     </article>
                     <article>
@@ -96,6 +184,7 @@
                             <h2><i class="fas fa-user"></i><a href="">Playcraft </a><i class="far fa-clock"></i> November
                                 22,2023</h2>
                             <p> </p>
+                            <button onclick="likeGame(this)" data-game="Hangman" class="like-btn">❤️ Like</button>
                         </div>
                     </article>
                     <article>
@@ -106,6 +195,7 @@
                             <h2><i class="fas fa-user"></i><a href="">Playcraft </a><i class="far fa-clock"></i> November
                                 22,2023</h2>
                             <p></p>
+                            <button onclick="likeGame(this)" data-game="My number" class="like-btn">❤️ Like</button>
                         </div>
                     </article>
                     <article>
@@ -116,6 +206,7 @@
                             <h2><i class="fas fa-user"></i><a href="">Playcraft </a><i class="far fa-clock"></i> November
                                 22,2023</h2>
                             <p></p>
+                            <button onclick="likeGame(this)" data-game="Puzzle" class="like-btn">❤️ Like</button>
                         </div>
                     </article>
 
@@ -200,7 +291,7 @@
                         </div>
                     </div>
                 </div>
-                                
+
                 <div class="box popularPost">
                     <div class="container">
                         <h1>Popular Games</h1>
@@ -227,6 +318,7 @@
                         
                     </div>
                 </div>
+                
                 <div class="box aboutMe">
                     <div class="container">
                         <h1>Your Profile</h1>
@@ -266,8 +358,46 @@
             </div>
         </div>
     </footer>
+    <script>
+        
+        document.addEventListener("DOMContentLoaded", function () {
+            function likeGame(likeButton) {
+            const gameName = likeButton.dataset.game;
+            const articleContainer = likeButton.closest('.article-container');
+            articleContainer.classList.toggle('liked');
+            likeButton.classList.toggle('clicked');
+        }
+
+            const logoutBtn = document.getElementById("logoutBtn");
+
+            logoutBtn.addEventListener("click", function () {
+                fetch('/logout', {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert("Uspešno odjavljeni!");
+                    window.location.href = '/login'; // primer preusmeritve na stran za prijavo
+                })
+                .catch(error => {
+                    console.error('Napaka pri odjavi:', error);
+                });
+            });
+        });
+        
+        
+    </script>
+
 
 </body>
 <script src="js/navbar.js"></script>
 
 </html>
+
+
+
+

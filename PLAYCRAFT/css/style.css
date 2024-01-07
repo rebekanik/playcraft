@@ -639,3 +639,31 @@ footer .textArea .colored {
         grid-template-columns: 100%;
     }
 }
+
+article .like-btn {
+    background-color: transparent;
+    border: none;
+    color: purple;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+}
+.article-container.liked {
+    background-color: #800080; 
+    transition: background-color 0.3s ease-in-out;
+}
+
+.article-container .like-btn {
+    cursor: pointer;
+    display: inline-block;
+    border: none;
+    background: none;
+    font-size: 16px;
+    color: #333;
+    transition: color 0.3s ease-in-out;
+}
+
+.article-container .like-btn.clicked {
+    color: #800080; 
+}
